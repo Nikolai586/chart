@@ -1,6 +1,24 @@
 from sys import exit
+import logging
+from logging.handlers import RotatingFileHandler
 import matplotlib.pyplot as plt
 import numpy as np
+
+
+handler = RotatingFileHandler(
+    "app.log",
+    maxBytes=5 * 1024 * 1024,
+    backupCount=10,
+    encoding="utf-8",
+)
+handler.setLevel(logging.DEBUG)
+handler.setFormatter(logging.Formatter(
+    "%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+))
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+logger.addHandler(handler)
 
 
 def plot_four_series_interactive(
@@ -126,7 +144,7 @@ if __name__ == "__main__":
     try:
         user_input = input_data()
     except ValueError as er:
-        print(er)
+        logger.error(er)
         exit(0)
     x = np.linspace(*user_input)
     y1 = np.sin(x)
