@@ -13,7 +13,7 @@ def plot_four_series_interactive(
     ylabel="Y",
     figsize=(11, 6),
     grid=True,
-    snap_tolerance=0.15,   # доля от диапазона X, в пределах которой срабатывает подсветка
+    snap_tolerance=0.15,
     save_path=None,
 ):
     x = np.asarray(x, dtype=float)
