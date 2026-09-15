@@ -112,20 +112,22 @@ def input_data() -> list[int]:
     data = user_input.split()
 
     if len(data) != 3:
-        print(f"❌ Ошибка: нужно ввести ровно 3 числа, а вы ввели {len(data)}. Попробуйте снова.\n")
-        exit(0)
+        raise ValueError("❌ Ошибка: нужно ввести ровно 3 числа, а вы ввели {len(data)}. Попробуйте снова.\n")
 
     try:
         numbers = [int(i) for i in data]
-    except ValueError:
-        print("❌ Ошибка: все введённые значения должны быть числами. Попробуйте снова.\n")
-        exit(0)
+    except:
+        raise ValueError("❌ Ошибка: все введённые значения должны быть числами. Попробуйте снова.\n")
     return numbers
         
 
 
 if __name__ == "__main__":
-    user_input = input_data()
+    try:
+        user_input = input_data()
+    except ValueError as er:
+        print(er)
+        exit(0)
     x = np.linspace(*user_input)
     y1 = np.sin(x)
     y2 = np.cos(x)
